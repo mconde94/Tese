@@ -306,3 +306,15 @@ def SeparatedMexicanNetwork():
         i = j
         j = j + r
     return redeFinal
+
+class Result:
+    OutputGapSD = None
+    InflationSD = None
+    C1 = None
+    C2 = None
+
+    def __init__(self, sim):
+        self.OutputGapSD = sim.StdY
+        self.InflationSD = sim.StdP
+        self.C1 = sim.ConstantC1
+        self.C2 = sim.ConstantC2

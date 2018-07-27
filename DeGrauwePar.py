@@ -13,7 +13,8 @@ def OptimalPolicy(cc1, cc2):
     sim = Simulation(interaction, numeroAgentes, topologia, cc1, cc2)
     sim.MakeSimulation()
     sim.SomeStatisticalTests()
-    return sim
+    resultado = Result(sim)
+    return resultado
 
 
 def OptimalPolicyHelper(args):
@@ -46,10 +47,10 @@ data = ParalellOptimalPolicy(list_c1, list_c2)
 
 # organizar os dados
 for i in range(0, tamanho):
-    indexcc1 = int(round((data[i].ConstantC1 - bc) / step))
-    indexcc2 = int(round((data[i].ConstantC2 - bc) / step))
-    mediasY[indexcc1, indexcc2] = mediasY[indexcc1, indexcc2] + data[i].StdY
-    mediasP[indexcc1, indexcc2] = mediasP[indexcc1, indexcc2] + data[i].StdP
+    indexcc1 = int(round((data[i].C1 - bc) / step))
+    indexcc2 = int(round((data[i].C2 - bc) / step))
+    mediasY[indexcc1, indexcc2] = mediasY[indexcc1, indexcc2] + data[i].OutputGapSD
+    mediasP[indexcc1, indexcc2] = mediasP[indexcc1, indexcc2] + data[i].InflationSD
 mediasY = mediasY / N
 mediasP = mediasP / N
 mediasY = mediasY[0:(np.size(c1)), 0:(np.size(c1))]
