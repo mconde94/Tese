@@ -6,7 +6,7 @@ start_time = time.time()
 
 interaction = 'DeGrauwe'
 topologia = 'Circular'
-numeroAgentes = 10
+numeroAgentes = 700
 
 
 def OptimalPolicy(cc1, cc2):
@@ -33,8 +33,8 @@ def ParalellOptimalPolicy(list_c1, list_c2):
 
 bc = 0.1  # inicio dos c
 step = 0.1  # step dos c
-ec = 1.5  # final do c
-N = 2  # numero de c para fazer a media
+ec = 3  # final do c
+N = 100  # numero de c para fazer a media
 nf = int(round(1 + (ec - bc) / step))
 list_c1, list_c2 = VectorParallel(bc, ec + step, step, N)
 c1 = np.linspace(bc, ec, nf)
