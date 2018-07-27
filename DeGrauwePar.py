@@ -32,7 +32,7 @@ def ParalellOptimalPolicy(list_c1, list_c2):
 
 bc = 0.1  # inicio dos c
 step = 0.1  # step dos c
-ec = 3  # final do c
+ec = 1.5  # final do c
 N = 2  # numero de c para fazer a media
 nf = int(round(1 + (ec - bc) / step))
 list_c1, list_c2 = VectorParallel(bc, ec + step, step, N)
@@ -62,7 +62,7 @@ now = datetime.datetime.now()
 nome = 'Hora' + str(now.hour) + 'Dia' + str(now.day) + 'Mes' + str(now.month) + 'Ano' + str(
     now.year) + interaction + topologia + str(numeroAgentes) + 'Agents' + '.mat'
 nomefig = 'Hora' + str(now.hour) + 'Dia' + str(now.day) + 'Mes' + str(now.month) + 'Ano' + str(
-    now.year) + interaction + topologia + str(numeroAgentes) + 'Agents'+'.png
+    now.year) + interaction + topologia + str(numeroAgentes) + 'Agents'+'.png'
 sio.savemat(nome, mdict={'mediasY': mediasY,'mediasP': mediasP, 'c1': c1, 'c2': c2,'nomefig':nomefig})
 print('Finish')
 print("--- %s seconds ---" % (time.time() - start_time))

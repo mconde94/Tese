@@ -1,5 +1,7 @@
 from __future__ import division
 import numpy as np
+import matplotlib as mpl
+mpl.use('tkagg')
 import matplotlib.pyplot as plt
 import math as math
 import scipy.io as sio
