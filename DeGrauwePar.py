@@ -5,7 +5,7 @@ from SIMULATIONS import *
 start_time = time.time()
 
 interaction = 'DeGrauwe'
-numAgentes = int(np.sum(np.genfromtxt('America.csv', delimiter=',')) + 1)
+numeroAgentes = int(np.sum(np.genfromtxt('America.csv', delimiter=',')) + 1)
 topologia = 'AmericaS'
 
 
