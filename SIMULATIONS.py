@@ -15,7 +15,7 @@ class Simulation:
     ConstantB2 = 0.05
     ConstantC1 = None
     ConstantC2 = None
-    ConstantC3 = 0.0
+    ConstantC3 = 0.1
     ConstantSigma1 = 0.5
     ConstantSigma2 = 0.5
     ConstantSigma3 = 0.5
