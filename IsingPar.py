@@ -11,6 +11,10 @@ topologia = 'AmericaS'
 
 def OptimalPolicy(cc1, cc2):
     sim = Simulation(interaction, numeroAgentes, topologia, cc1, cc2)
+    sim.Grid.ImitationRate = 0.3
+    sim.Grid.SelfConversion = 0.1
+    sim.Grid.OutConversion = 5
+    sim.Gamma = 100
     sim.MakeSimulation()
     sim.SomeStatisticalTests()
     resultado = Result(sim)
@@ -57,10 +61,12 @@ mediasY = mediasY[0:(np.size(c1)), 0:(np.size(c1))]
 mediasP = mediasP[0:(np.size(c1)), 0:(np.size(c1))]
 
 
+algumextra='ISING2'
+
 # guardar como ficheiro .mat que os graficos ficam mais bonitos no matlab
 # mover para o diretorio do matlab
 now = datetime.datetime.now()
-nome = 'Hora' + str(now.hour) + 'Dia' + str(now.day) + 'Mes' + str(now.month) + 'Ano' + str(
+nome = algumextra + 'Hora' + str(now.hour) + 'Dia' + str(now.day) + 'Mes' + str(now.month) + 'Ano' + str(
     now.year) + interaction + topologia + str(numeroAgentes) + 'Agents' + '.mat'
 nomefig = 'Hora' + str(now.hour) + 'Dia' + str(now.day) + 'Mes' + str(now.month) + 'Ano' + str(
     now.year) + interaction + topologia + str(numeroAgentes) + 'Agents'+'.png'
