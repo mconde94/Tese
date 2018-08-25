@@ -14,7 +14,7 @@ def OptimalPolicy(cc1, cc2):
     sim.Grid.ImitationRate = 0.3
     sim.Grid.SelfConversion = 0.1
     sim.Grid.OutConversion = 5
-    sim.Gamma = 100
+    sim.Gamma = 75
     sim.MakeSimulation()
     sim.SomeStatisticalTests()
     resultado = Result(sim)
