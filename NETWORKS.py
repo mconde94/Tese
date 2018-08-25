@@ -307,8 +307,7 @@ class Network:
             Soma = self.SumOverNeighbours(i, OldStates)
             Magnetization = (extMag*self.OutConversion + self.SelfConversion) * OldStates[i].IsingExpectative + Soma
             miolo = -2* Magnetization * Lambda
-            max = 1.7976931348623157e+308
-            prob = np.float(1 / 1 + math.exp(miolo))
+            prob = np.float(1 / (1 + math.exp(miolo)))
             if OldStates[i].IsingExpectative == 1:
                 alpha = min(1, prob)
             else:

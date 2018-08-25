@@ -5,8 +5,8 @@ from SIMULATIONS import *
 start_time = time.time()
 
 interaction = 'Ising'
-numeroAgentes = int(np.sum(np.genfromtxt('America.csv', delimiter=',')) + 1)
-topologia = 'AmericaS'
+numeroAgentes = 750
+topologia = 'Circular'
 
 
 def OptimalPolicy(cc1, cc2):
@@ -14,7 +14,7 @@ def OptimalPolicy(cc1, cc2):
     sim.Grid.ImitationRate = 0.3
     sim.Grid.SelfConversion = 0.1
     sim.Grid.OutConversion = 5
-    sim.Gamma = 75
+    sim.Gamma = 100
     sim.MakeSimulation()
     sim.SomeStatisticalTests()
     resultado = Result(sim)
