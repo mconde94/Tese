@@ -5,7 +5,7 @@ from SIMULATIONS import *
 start_time = time.time()
 
 interaction = 'Ising'
-numeroAgentes = 750
+numeroAgentes = 650kk
 topologia = 'Circular'
 
 
