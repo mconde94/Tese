@@ -23,13 +23,14 @@ for i in range(0,N):
     sim.ConstantSigma2 = 0.5/100
     sim.ConstantSigma3 = 0.5/100
     sim.MakeSimulation()
+    sim.SomeStatisticalTests()
     ListaStdP[i]=sim.StdP
     ListaStdY[i]=sim.StdY
 
 fig1 = plt.figure(1)
-MakeAnHistogram(ListaStdY,'Standard deviation of the ouput gap',20)
+MakeAnHistogram(ListaStdY,'Standard deviation of the ouput gap',15)
 fig2 = plt.figure(2)
-MakeAnHistogram(ListaStdP,'Standard deviation of the inflation',20)
+MakeAnHistogram(ListaStdP,'Standard deviation of the inflation',15)
 
 sim = Simulation(interaction, numAgentes, topologia, c1, c2)
 sim.Grid.ImitationRate = LambdaImitationRate
