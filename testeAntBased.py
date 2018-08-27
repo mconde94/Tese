@@ -10,10 +10,11 @@ sim.Grid.ImitationRate = 0.6
 sim.Grid.SelfConversion = 0.15
 sim.Grid.OutConversion = 0.6
 sim.Gamma = 150
-sim.ConstantSigma1 = 0.5/100
-sim.ConstantSigma2 = 0.5/100
-sim.ConstantSigma3 = 0.5/100
+sim.ConstantSigma1 = 0.5
+sim.ConstantSigma2 = 0.5
+sim.ConstantSigma3 = 0.5
 sim.MakeSimulation()
 sim.AllStatisticalTests()
-sim.TimeSeriesGraph(0)
-sim.FrequencyGraphOfTimeSeries(4, 20)
+print(sim.StdY)
+#sim.TimeSeriesGraph(0)
+#sim.FrequencyGraphOfTimeSeries(4, 20)

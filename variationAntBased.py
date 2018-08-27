@@ -19,11 +19,8 @@ for i in range(0,N):
     sim.Grid.SelfConversion = BetaSelfConversion
     sim.Grid.OutConversion = EtaOutConversion
     sim.Gamma = Temp
-    sim.ConstantSigma1 = 0.5/100
-    sim.ConstantSigma2 = 0.5/100
-    sim.ConstantSigma3 = 0.5/100
     sim.MakeSimulation()
-    sim.SomeStatisticalTests()
+    sim.AllStatisticalTests()
     ListaStdP[i]=sim.StdP
     ListaStdY[i]=sim.StdY
 
