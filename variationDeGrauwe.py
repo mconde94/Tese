@@ -17,7 +17,7 @@ ListaJBP = np.zeros((N,1))
 
 c1 = 1.5
 c2 = 0.5
-interaction = 'Ising'
+interaction = 'DeGrauwe'
 numAgentes = int(np.sum(np.genfromtxt('America.csv', delimiter=',')) + 1)
 topologia = 'AmericaS'
 LambdaImitationRate = 0.6
