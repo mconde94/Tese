@@ -11,10 +11,10 @@ topologia = 'Circular'
 
 def OptimalPolicy(cc1, cc2):
     sim = Simulation(interaction, numeroAgentes, topologia, cc1, cc2)
-    sim.Grid.ImitationRate = 0.3
-    sim.Grid.SelfConversion = 0.1
-    sim.Grid.OutConversion = 5
-    sim.Gamma = 75
+    sim.Grid.ImitationRate = 0.6
+    sim.Grid.SelfConversion = 0.15
+    sim.Grid.OutConversion = 0.5
+    sim.Gamma = 150
     sim.MakeSimulation()
     sim.SomeStatisticalTests()
     resultado = Result(sim)
@@ -61,7 +61,7 @@ mediasY = mediasY[0:(np.size(c1)), 0:(np.size(c1))]
 mediasP = mediasP[0:(np.size(c1)), 0:(np.size(c1))]
 
 
-algumextra='ISING2'
+algumextra='ISING3'
 
 # guardar como ficheiro .mat que os graficos ficam mais bonitos no matlab
 # mover para o diretorio do matlab
