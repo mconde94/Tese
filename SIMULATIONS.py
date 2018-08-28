@@ -272,8 +272,22 @@ class Simulation:
             ylagt[t] = y[t - 1]
             CRy[t] = self.ConstantRho * CRy[t - 1] - (1 - self.ConstantRho) * (eychar - y[t]) ** 2
             FRy[t] = self.ConstantRho * FRy[t - 1] - (1 - self.ConstantRho) * (eyfun - y[t]) ** 2
-            alfay = self.ConstantRhoBH * alfayt[t - 1] + (1 - self.ConstantRhoBH) * math.exp(self.Gamma * CRy[t]) / (
-                    math.exp(self.Gamma * CRy[t]) + math.exp(self.Gamma * FRy[t]))
+            try:
+                exponencialCRy = math.exp(self.Gamma * CRy[t])
+            except OverflowError:
+                exponencialCRy = float('inf')
+            try:
+                exponencialFRy = math.exp(self.Gamma * FRy[t])
+            except OverflowError:
+                exponencialFRy = float('inf')
+            alfay = self.ConstantRhoBH * alfayt[t - 1] + (1 - self.ConstantRhoBH) * exponencialCRy / (
+                    exponencialCRy + exponencialFRy)
+            if math.isnan(alfay):
+                alfay=1
+            elif alfay>1:
+                alfay=1
+            elif alfay<0:
+                alfay=0
             ExtMagIn = 2 * alfay - 1
             self.Grid.IsingInteraction(self.Gamma, ExtMagIn, t)
             alfay = 0.5 * self.Grid.Expectative + 0.5

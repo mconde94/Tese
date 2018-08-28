@@ -149,57 +149,6 @@ class Network:
         outEYS = np.mean(EYS)
         return outEYS
 
-    def DeGrauweInteraction2(self, ro, eyfun, yt, roBH, gamma, indice):
-        # inovate all agents
-        #inovacao tem a mesma uma probabilidade baixa
-        #tem que comparar os alfas dele, da inovação e dos vizinhos e escolhe o melhor alfa
-        #por memoria?? rhobh mexer
-        OldStates1 = self.List
-        NewStates = self.List
-        OldStates = []
-        # agents analyze the situation
-        for i in range(0, self.NumberOfAgents):
-            self.List[i].ClassificationDeGrauwe(ro, eyfun, yt, roBH, gamma, indice)
-        # agents interact
-        FinalY = np.zeros((self.NumberOfAgents, 1))
-        FinalAlfa = np.zeros((self.NumberOfAgents, 1))
-        FinalEYS = np.zeros((self.NumberOfAgents,1))
-        for i in range(0, self.NumberOfAgents):
-            vizinhos = []
-            if np.random.rand() < OldStates1[i].ProbabilityOfInovation:
-                OldStates = np.append(OldStates1,Agent(OldStates1[0].TypeOfAgent, OldStates1[0].TotalTime))
-                flag = (np.random.randint(OldStates[self.NumberOfAgents].lowest, high=OldStates[self.NumberOfAgents].highest) + np.random.rand())*0.1
-                OldStates[self.NumberOfAgents].OutputGapExpectative = flag
-                OldStates[self.NumberOfAgents].PastOutputGapExpectative[indice] = flag
-                OldStates[self.NumberOfAgents].ClassificationDeGrauwe(ro, eyfun, yt, roBH, gamma, indice)
-                vizinhos = np.append(OldStates[i].Neighbours, i,self.NumberOfAgents)
-            else:
-                OldStates = OldStates1
-                vizinhos = np.append(OldStates[i].Neighbours, i)
-            valuesY = np.zeros((np.size(vizinhos), 1))
-            valuesAlphaYt = np.zeros((np.size(vizinhos), 1))
-            for j in range(0, np.size(vizinhos)):
-                indi = int(vizinhos[j])
-                valuesY[j] = OldStates[indi].OutputGapExpectative
-                valuesAlphaYt[j] = OldStates[indi].currentAlfaY
-            NewStates[i].OutputGapExpectative = valuesY[int(np.argmax(valuesAlphaYt))]
-            NewStates[i].PastOutputGapExpectative[indice] = valuesY[int(np.argmax(valuesAlphaYt))]
-            NewStates[i].currentAlfaY = np.max((valuesAlphaYt))
-            NewStates[i].AlfaY[indice] = np.max((valuesAlphaYt))
-            FinalY[i] = NewStates[i].OutputGapExpectative
-            FinalAlfa[i] = np.max(valuesAlphaYt)
-            if FinalAlfa[i]>0.01:
-                #extrapolativa
-                FinalEYS[i] = NewStates[i].OutputGapExpectative
-            else:
-                #confia no banco central
-                FinalEYS[i] = eyfun
-                NewStates[i].OutputGapExpectative = eyfun
-                NewStates[i].PastOutputGapExpectative[indice] = eyfun
-        self.List = NewStates
-        return FinalY, FinalAlfa , FinalEYS
-
-
     def DeGrauweInteraction(self, ro, eyfun, yt, roBH, gamma, indice):
         # inovate all agents
         OldNetwork = self
@@ -245,59 +194,6 @@ class Network:
                 self.List[i].PastOutputGapExpectative[indice] = eyfun
                 self.List[i].currentAlfaY = 0
                 self.List[i].AlfaY[indice] = 0
-        return FinalY, FinalAlfa , FinalEys
-
-    def DeGrauweInteraction1(self, ro, eyfun, yt, roBH, gamma, indice):
-        # inovate all agents
-        OldNetwork = self
-        self.CentralBank.OutputGapExpectative = eyfun
-        self.CentralBank.PastOutputGapExpectative[indice] = self.CentralBank.OutputGapExpectative
-        # agents analyze the situation
-        for i in range(0, self.NumberOfAgents):
-            OldNetwork.List[i].ClassificationDeGrauwe(ro, eyfun, yt, roBH, gamma, indice)
-            self.CentralBank.ClassificationDeGrauwe(ro, eyfun, yt, roBH, gamma, indice)
-        # agents interact
-        FinalY = np.zeros((self.NumberOfAgents, 1))
-        FinalAlfa = np.zeros((self.NumberOfAgents, 1))
-        FinalEys = np.zeros((self.NumberOfAgents,1))
-        for i in range(0, self.NumberOfAgents):
-            Inovation = False
-            vizinhos =  OldNetwork.List[i].Neighbours
-            newAgent = []
-            if OldNetwork.List[i].ProbabilityOfInovation > np.random.rand():
-                newAgent = Agent(OldNetwork.List[i].TypeOfAgent,OldNetwork.List[i].TotalTime)
-                newAgent.DeGrauweInovation(indice)
-                newAgent.ClassificationDeGrauwe(ro, eyfun, yt, roBH, gamma, indice)
-                Inovation = True
-            vizinhos = np.append(vizinhos, i)
-            valuesY = np.zeros((np.size(vizinhos), 1))
-            valuesAlphaYt = np.zeros((np.size(vizinhos), 1))
-            for j in range(0, np.size(vizinhos)):
-                indi = int(vizinhos[j])
-                valuesY[j] = OldNetwork.List[indi].OutputGapExpectative
-                valuesAlphaYt[j] = OldNetwork.List[indi].currentAlfaY
-            valuesY = np.append(valuesY, self.CentralBank.OutputGapExpectative)
-            valuesAlphaYt = np.append(valuesAlphaYt, self.CentralBank.currentAlfaY)
-            if Inovation == True:
-                valuesY = np.append(valuesY,newAgent.OutputGapExpectative)
-                valuesAlphaYt = np.append(valuesAlphaYt, newAgent.currentAlfaY)
-            self.List[i].OutputGapExpectative = valuesY[int(np.argmax(valuesAlphaYt))]
-            self.List[i].PastOutputGapExpectative[indice] = valuesY[int(np.argmax(valuesAlphaYt))]
-            self.List[i].currentAlfaY = np.max((valuesAlphaYt))
-            self.List[i].AlfaY[indice] = np.max((valuesAlphaYt))
-            FinalY[i] = self.List[i].OutputGapExpectative
-            FinalAlfa[i] = np.max(valuesAlphaYt)
-            #print(FinalAlfa[i])
-            if FinalAlfa[i]==eyfun:
-                FinalEys[i] = eyfun
-                FinalAlfa[i] = 0
-                self.List[i].OutputGapExpectative = eyfun
-                self.List[i].PastOutputGapExpectative[indice] = eyfun
-                self.List[i].currentAlfaY = 0
-                self.List[i].AlfaY[indice] = 0
-            else:
-                FinalEys[i] = FinalY[i]
-                FinalAlfa[i] = 0
         return FinalY, FinalAlfa , FinalEys
 
     def IsingInteraction(self, Lambda, extMag, indice):

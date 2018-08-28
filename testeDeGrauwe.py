@@ -14,5 +14,5 @@ sim.ConstantSigma3 = 0.5/1
 sim.MakeSimulation()
 sim.AllStatisticalTests()
 print(sim.StdY)
-#sim.TimeSeriesGraph(0)
-#sim.FrequencyGraphOfTimeSeries(4, 30)
+sim.TimeSeriesGraph(0)
+sim.FrequencyGraphOfTimeSeries(4, 30)
